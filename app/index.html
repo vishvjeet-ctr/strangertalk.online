@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>StrangerTalk</title>
+
+  <!-- ✅ FIXED CSS PATH -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo"></span>
+    <h1>StrangerTalk</h1>
+  </div>
+  <div class="right">
+    <span id="statusDot" class="status-dot"></span>
+    <span id="statusText" class="status-text">Idle</span>
+  </div>
+</header>
+
+<main class="app">
+  <section class="video panel">
+    <div class="remote video-box">
+      <video id="remoteVideo" autoplay playsinline></video>
+      <div class="name-tag">Stranger</div>
+    </div>
+
+    <div class="bottom-row">
+      <div class="local video-box">
+        <video id="localVideo" autoplay muted playsinline></video>
+        <div class="name-tag">You</div>
+      </div>
+
+      <div class="controls panel">
+        <button id="btnStart" class="btn primary">Start</button>
+        <button id="btnNext" class="btn">Next</button>
+        <button id="btnStop" class="btn">Stop</button>
+        <div class="spacer"></div>
+        <button id="btnMute" class="btn icon">🎤</button>
+        <button id="btnCam" class="btn icon">📷</button>
+        <button id="btnReport" class="btn icon">⚑</button>
+      </div>
+    </div>
+  </section>
+
+  <aside class="side panel">
+    <div class="messages" id="messages">
+      <div class="msg sys">Press Start to find a stranger.</div>
+    </div>
+
+    <form class="composer" id="chatForm">
+      <input id="chatInput" type="text" placeholder="Type a message…">
+      <button class="btn primary" type="submit">Send</button>
+    </form>
+  </aside>
+</main>
+
+<footer class="foot"></footer>
+
+<!-- ✅ Load correct socket.io client -->
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- ✅ Your JS file -->
+<script src="/js/client.js"></script>
+
+</body>
+</html>
