@@ -49,7 +49,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static("public"));
 
-const port = process.env.PORT||PORT;
+const port = process.env.PORT||port;
 
 app.use(express.static(join(__dirname, 'public')));
 
@@ -60,8 +60,7 @@ let checkLogin = (req,res,next)=>{
     }else{
         res.redirect('login.ejs')
     }
-}
-
+} 
 
 app.get("/", (req, res) => {
   res.render("login.ejs")
