@@ -87,29 +87,27 @@ app.post('/forgot-password',async(req,res)=>{
     return res.status(400).json({ success: false, message: "Invalid Email" });
    }
 await send(email,verifaction)
-    res.render('verify.ejs')
+    res.render('verify.ejs', { email, msg: null })
 })
 
 
 app.post('/verifyOTP', async (req, res) => {
     try {
-        const { otp } = req.body;
-        const user = await User.findOne({ verifaction:otp });
+        const { otp, email } = req.body;
+        const user = await User.findOne({ verifaction: otp });
 
         if (!user) {
-            return res.status(400).json({ success: false, message: "Invalid or Expired code" });
+            return res.render('verify.ejs', { email, msg: '❌ Incorrect OTP. Please try again.' });
         }
 
-       else{
-         user.isVerified = true;
+        user.isVerified = true;
         user.verifaction = undefined;
         await user.save();
-       res.sendFile(join(__dirname , 'app' ,'index.html'));
-       }
+        res.sendFile(join(__dirname , 'app' ,'index.html'));
        
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ success: false, message: "Server error" });
+        return res.render('verify.ejs', { email: req.body.email, msg: 'Server error. Please try again.' });
     }
 });
 
@@ -214,6 +212,11 @@ function disconnectPair(id) {
 
 /* ---------------- SOCKET.IO MAIN LOGIC ---------------- */
 
+// Broadcast online user count to all clients
+const broadcastUserCount = () => {
+    io.emit("online-count", users.size);
+};
+
 io.on("connection", (socket) => {
     console.log(`User connected: ${socket.id}`);
 
@@ -223,7 +226,12 @@ io.on("connection", (socket) => {
         peerId: null
     });
 
-    
+    // Broadcast count to all users (including the new one)
+    // Use io.emit to reach everyone including this socket
+    const count = users.size;
+    console.log(`Broadcasting user count: ${count}`);
+    io.emit("online-count", count);
+
     socket.on("find", () => {
         const me = users.get(socket.id);
         if (!me || me.peerId) return;
@@ -254,6 +262,7 @@ io.on("connection", (socket) => {
         users.delete(socket.id);
         waitingPool.delete(socket.id);
         console.log(`User disconnected: ${socket.id}`);
+        broadcastUserCount();
     });
 
     socket.on("chat", (payload = {}) => {

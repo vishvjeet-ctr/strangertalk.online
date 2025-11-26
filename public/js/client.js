@@ -18,6 +18,7 @@ const statusText = document.getElementById("statusText");
 const msgBox    = document.getElementById("messages");
 const chatForm  = document.getElementById("chatForm");
 const chatInput = document.getElementById("chatInput");
+const onlineCount = document.getElementById("onlineCount");
 
 // ---------- Socket.IO ----------
 const socket = io();
@@ -125,6 +126,8 @@ btnNext.onclick = () => {
   socket.emit("next");
   cleanupPeer();
   setStatus("Searching…", "search");
+  // Automatically search for next user
+  socket.emit("find");
 };
 
 btnStop.onclick = () => {
@@ -170,12 +173,20 @@ chatForm?.addEventListener("submit", (e) => {
 // ---------- Chat Receive (IMPORTANT: Only Once!) ----------
 socket.on("chat", ({ text }) => addMsg(text, "in"));
 
+// ---------- Online User Count ----------
+socket.on("online-count", (count) => {
+  console.log("Received online-count:", count);
+  if (onlineCount) {
+    onlineCount.textContent = `👥 ${count} Online`;
+  }
+});
+
 // ---------- Matchmaking Events ----------
 socket.on("waiting", () => setStatus("Waiting…", "search"));
 
 socket.on("matched", async ({ peerID }) => {
   peerSocketId = peerID;
-  setStatus("Matched! Connecting…", "ok");
+  setStatus("Matched! Connected..", "ok");
   await ensureMedia();
   createPC();
 
@@ -187,6 +198,8 @@ socket.on("peer-left", () => {
   addMsg("Stranger left.", "sys");
   cleanupPeer();
   setStatus("Searching…", "search");
+  // Automatically search for next user when stranger disconnects
+  socket.emit("find");
 });
 
 // ---------- Signaling ----------
