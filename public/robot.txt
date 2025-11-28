@@ -1,0 +1,19 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /forgot-password/
+Disallow: /reset-password/
+Disallow: /auth/
+Disallow: /private/
+Allow: /
+
+# Your important pages are allowed for indexing
+Allow: /home
+Allow: /privacy
+Allow: /terms
+Allow: /Rules
+Allow: /agreements
+Allow: /contact
+
+# Sitemap location
+Sitemap: https://strangertalk.online/sitemap.xml

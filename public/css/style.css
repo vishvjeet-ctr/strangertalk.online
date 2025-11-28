@@ -1,144 +1,456 @@
-:root{
-    --bg: #0f1115;
-    --panel: #151821;
-    --panel-2: #191d28;
-    --muted: #8a93a6;
-    --text: #e6e9f2;
-    --accent: #6c8cff;
-    --accent-2: #22e1ff;
-    --ring: rgba(108,140,255,.45);
-    --radius: 16px;
-    --gap: 16px;
-    --line: #202535;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #f5f5f5;
+  color: #0e75d6;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.topbar {
+  background: white;
+  color: #0e75d6;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  background: white;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.brand h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fbbf24;
+  display: inline-block;
+}
+
+.status-dot.connected {
+  background: #10b981;
+}
+
+.status-text {
+  font-weight: 600;
+}
+
+.online-count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+/* MAIN APP */
+.app {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 15px;
+  padding: 15px;
+  flex: 1;
+  overflow: hidden;
+  max-width: 1800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.panel {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+/* VIDEO SECTION */
+.video.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  overflow: hidden;
+}
+
+.remote.video-box {
+  position: relative;
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+}
+
+.remote video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bottom-row {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.local.video-box {
+  position: relative;
+  background: #1a1a1a;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 280px;
+  height: 160px;
+  flex-shrink: 0;
+}
+
+.local video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.name-tag {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* CONTROLS */
+.controls.panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 12px;
+  background: white;
+  flex: 1;
+}
+
+.spacer {
+  grid-column: 1 / -1;
+  height: 0;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #e5e7eb;
+  color: #374151;
+  width: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn.primary {
+  background: #0e75d6;
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #0a5cb8;
+}
+
+.btn.icon {
+  font-size: 20px;
+  padding: 10px;
+}
+
+/* CHAT SIDEBAR */
+.side.panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.msg {
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 85%;
+  word-wrap: break-word;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.msg.sys {
+  background: #fef3c7;
+  color: #92400e;
+  align-self: center;
+  text-align: center;
+  font-weight: 500;
+  max-width: 100%;
+}
+
+.msg.you {
+  background: #0e75d6;
+  color: white;
+  align-self: flex-end;
+}
+
+.msg.stranger {
+  background: #e5e7eb;
+  color: #374151;
+  align-self: flex-start;
+}
+
+/* COMPOSER */
+.composer {
+  display: flex;
+  gap: 10px;
+  padding: 12px;
+  border-top: 1px solid #e5e7eb;
+  background: #f9fafb;
+  flex-shrink: 0;
+}
+
+.composer input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.composer input:focus {
+  border-color: #0e75d6;
+}
+
+.composer button {
+  padding: 10px 20px;
+}
+
+/* FOOTER */
+.foot {
+  background: #f9fafb;
+  padding: 8px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 12px;
+  border-top: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+/* LARGE DESKTOP */
+@media (min-width: 1400px) {
+  .app {
+    grid-template-columns: 1fr 450px;
+    gap: 20px;
+    padding: 20px;
   }
-  
-  *{box-sizing: border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, "Apple Color Emoji","Segoe UI Emoji";
-    color:var(--text);
-    background:
-      radial-gradient(1200px 600px at 85% -10%, #283056 0%, transparent 60%),
-      radial-gradient(900px 500px at -5% 90%, #143245 0%, transparent 60%),
-      var(--bg);
+
+  .local.video-box {
+    width: 320px;
+    height: 180px;
   }
-  
-  /* Topbar */
-  .topbar{
-    max-width:1200px; margin:0 auto; padding:16px 20px;
-    display:flex; align-items:center; justify-content:space-between;
+}
+
+/* TABLET LANDSCAPE */
+@media (max-width: 1200px) {
+  .app {
+    grid-template-columns: 1fr 350px;
   }
-  .brand{display:flex; align-items:center; gap:10px}
-  .brand img{
-    width:34px; height:34px; border-radius:10px;
-    object-fit:contain;
+
+  .local.video-box {
+    width: 240px;
+    height: 140px;
   }
-  .logo{
-    width:34px; height:34px; border-radius:10px;
-    background: conic-gradient(from 180deg, var(--accent), var(--accent-2), var(--accent));
-    box-shadow: 0 0 0 6px rgba(108,140,255,.08), 0 6px 24px rgba(0,0,0,.35);
+
+  .btn {
+    padding: 10px 16px;
+    font-size: 14px;
   }
-  .brand h1{font-size:18px; margin:0; letter-spacing:.3px}
-  .right{display:flex; align-items:center; gap:8px; color:var(--muted); font-size:13px}
-  .status-dot{width:8px;height:8px;border-radius:50%;background:#666;box-shadow:0 0 0 6px rgba(255,255,255,.05)}
-  .status-text{color:#cfd6ea}
-  .online-count{margin-left:16px;padding:4px 10px;background:#1f2937;border-radius:8px;font-size:12px;color:#60a5fa;border:1px solid #374151}
-  
-  /* App layout */
-  .app{
-    max-width:1200px; margin:0 auto; padding:0 20px 24px;
-    display:grid; gap:var(--gap);
-    grid-template-columns: 1.25fr .75fr;
+}
+
+/* TABLET PORTRAIT */
+@media (max-width: 968px) {
+  html,
+  body {
+    overflow: auto;
   }
-  .panel{
-    background: linear-gradient(180deg, var(--panel), var(--panel-2));
-    border:1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+
+  .app {
+    grid-template-columns: 1fr;
+    overflow: visible;
   }
-  
-  /* Video section */
-  .video{ padding:16px; display:flex; flex-direction:column; gap:16px }
-  .video-box{
-    position:relative; width:100%; border-radius:12px; overflow:hidden;
-    border:1px solid var(--line);
+
+  .video.panel {
+    min-height: 500px;
+  }
+
+  .remote.video-box {
+    min-height: 300px;
+  }
+
+  .bottom-row {
+    flex-direction: column;
+  }
+
+  .local.video-box {
+    width: 100%;
+    height: auto;
     aspect-ratio: 16/9;
-    display:flex; align-items:center; justify-content:center;
-    background: #0c1122;
   }
-  .video-box video{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
+
+  .controls.panel {
+    width: 100%;
   }
-  /* Mirror the local preview so it feels like a mirror to the user.
-     The remote video stays unmirrored. */
-  .local video { transform: scaleX(-1); }
-  .name-tag{
-    position:absolute; left:10px; top:10px; padding:4px 8px; font-size:12px;
-    background: rgba(21,24,33,.65); border:1px solid var(--line); border-radius:999px;
+
+  .side.panel {
+    min-height: 400px;
   }
-  .bottom-row{display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:center}
-  
-  /* Controls */
-  .controls{
-    display:flex; align-items:center; gap:8px; padding:10px 12px;
-    border-radius: 12px;
-    background: linear-gradient(180deg, #141826, #121521);
+
+  .messages {
+    min-height: 300px;
   }
-  .btn{
-    appearance:none; border:1px solid var(--line); color:var(--text);
-    background:#121523; padding:10px 14px; border-radius:10px; cursor:pointer;
-    font:inherit; transition:transform .05s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+/* MOBILE */
+@media (max-width: 640px) {
+  .topbar {
+    padding: 10px 15px;
   }
-  .btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.25); border-color:#2a3350 }
-  .btn:active{ transform: translateY(0) }
-  .btn.primary{ background: linear-gradient(180deg, var(--accent), #3a5fe9); border-color: transparent }
-  .btn.icon{ width:42px; padding:10px }
-  .btn.active { background:#ff4d4d; border-color:#ff8585; }
-  
-  /* Sidebar */
-  .side{ display:flex; flex-direction:column; overflow:hidden }
-  .tags{ padding:16px; border-bottom:1px solid var(--line) }
-  .tags h2{ margin:0 0 10px 0; font-size:14px; color:#cfd6ea; letter-spacing:.02em }
-  .chips{ display:flex; flex-wrap:wrap; gap:8px }
-  .chip{
-    padding:6px 10px; font-size:12px; color:#c9d2ef;
-    background:#111424; border:1px solid var(--line); border-radius:999px;
+
+  .brand {
+    gap: 8px;
   }
-  .chat{ display:flex; flex-direction:column; min-height:300px }
-  .messages{
-    padding:16px; height:360px; overflow:auto; line-height:1.35;
-    display:flex; flex-direction:column; gap:10px;
+
+  .logo {
+    width: 30px;
+    height: 30px;
   }
-  .msg{ padding:10px 12px; border:1px solid var(--line); border-radius:10px; width: fit-content; max-width: 100% }
-  .msg.in{ background:#121523 }
-  .msg.out{ background:#0f1428; margin-left:auto }
-  .msg.sys{ background:#0f1925; color:#9fb3d9; font-size:13px }
-  .who{ color:#9fb3ff; margin-right:6px }
-  
-  .composer{
-    display:flex; gap:8px; padding:12px; border-top:1px solid var(--line);
-    background:linear-gradient(180deg, #141826, #121521);
+
+  .brand h1 {
+    font-size: 18px;
   }
-  .composer input{
-    flex:1; min-width:0; border:1px solid var(--line); background:#0f1423;
-    color:var(--text); padding:12px 14px; border-radius:10px; outline: none;
+
+  .right {
+    gap: 10px;
+    font-size: 12px;
   }
-  .composer input:focus{ box-shadow: 0 0 0 4px var(--ring) }
-  
-  /* Footer */
-  .foot{ color:var(--muted); text-align:center; padding:12px 16px; font-size:12px }
-  
-  /* Responsive */
-  @media (max-width: 1024px){
-    .app{ grid-template-columns: 1fr }
-    .messages{ height:280px }
+
+  .online-count {
+    display: none;
   }
-  @media (max-width: 520px){
-    .btn.icon{ display:none }
-    .bottom-row{ grid-template-columns: 1fr }
+
+  .app {
+    padding: 10px;
+    gap: 10px;
   }
-  
+
+  .video.panel {
+    padding: 10px;
+    gap: 10px;
+    min-height: 450px;
+  }
+
+  .remote.video-box {
+    min-height: 250px;
+  }
+
+  .controls.panel {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .btn {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .composer input {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .composer button {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .name-tag {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  .msg {
+    font-size: 13px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 380px) {
+  .brand h1 {
+    font-size: 16px;
+  }
+
+  .controls.panel {
+    gap: 6px;
+  }
+
+  .btn {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}

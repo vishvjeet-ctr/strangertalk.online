@@ -1,199 +1,918 @@
+<!-- CHANGES: removed facebook & vk buttons; added jelly CSS for .social-btn.google -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StrangerTalk - Free Anonymous Chat</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StrangerTalk - Free anonymous Chat</title>
   <meta name="description" content="Chat instantly with strangers world in this free, easy-to-use chatroom! Free Chat,super easy,only need to register,sign up fast and start chatting!" >
   <link rel="icon" type="image/png" href="./all.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
     body {
-      background: #0d1117;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #ffffff;
+      color: #0e75d6;
+    }
+
+    /* NAVBAR */
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 15px 25px;
+      display: flex;
+      gap: 60px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-link {
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #0e75d6;
+      border: none;
+      background: none;
+      transition: opacity 0.3s ease;
+      padding: 0;
+    }
+
+    .nav-link:hover {
+      opacity: 0.8;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: #0e75d6;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 60px;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.98);
+      z-index: 2000;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    .mobile-menu .nav-link {
+      font-size: 24px;
+    }
+
+    .close-menu {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      background: none;
+      border: none;
+      font-size: 36px;
+      color: #0e75d6;
+      cursor: pointer;
+    }
+
+    /* LOGIN PAGE */
+    #loginPage {
+      padding: 0;
+      margin: 0;
+      background: #ffffff;
+    }
+
+    .login-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 100vh;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .login-box {
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      overflow-y: auto;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+    }
+
+    .login-container h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #0e75d6;
+    }
+
+    .login-container img {
+      max-width: 120px;
+      margin: 20px auto;
+      display: block;
+    }
+
+    .social-btn {
+      width: 100%;
+      padding: 12px 16px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      font-size: 17px;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      font-family: system-ui, sans-serif;
-      color: #fff;
-      padding: 15px;
-    }
-
-    .login-card {
-      width: 100%;
-      max-width: 420px;
-      padding: 35px 32px;
-      background: #111827;
-      border-radius: 14px;
-      box-shadow: 0 0 35px rgba(0,0,0,0.35);
-      border: 1px solid #1f2937;
-    }
-
-    .login-card h2 {
-      text-align: center;
-      margin-bottom: 8px;
-      font-weight: 600;
-    }
-
-    .login-card p {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 14px;
-      color: #9ca3af;
-    }
-
-    .form-control {
-      background: #0d1117 !important;
-      color: #fff !important;
-      border: 1px solid #374151 !important;
-      border-radius: 10px;
-      padding: 12px;
-    }
-
-    .input-group-text {
-      background: #0d1117;
-      border: 1px solid #374151;
-      cursor: pointer;
-      color: #9ca3af;
-    }
-
-    .input-group-text:hover {
-      color: #fff;
-    }
-
-    .form-control:focus {
-      border-color: #3b82f6 !important;
-      box-shadow: 0 0 0 3px rgba(59,130,246,.35) !important;
-    }
-
-    .btn-primary {
-      padding: 12px;
-      border-radius: 10px;
-      font-weight: 500;
-      background: #2563eb;
+      gap: 10px;
       border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      font-weight: 500;
     }
 
-    .btn-primary:hover {
-      background: #1d4ed8;
+    .social-btn.google {
+      background: linear-gradient(135deg, #0e75d6 0%, #0a5cb8 100%);
+      border: none;
+      color: white;
+      box-shadow: 0 4px 15px rgba(14, 117, 214, 0.3), 
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+      will-change: transform;
+      transform: translateZ(0);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .signup-link {
+    .social-btn.google::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    @keyframes jelly {
+      0%, 100% {
+        transform: scale(1) translateY(0);
+      }
+      25% {
+        transform: scale(1.05, 0.95) translateY(0);
+      }
+      50% {
+        transform: scale(0.95, 1.05) translateY(-2px);
+      }
+      75% {
+        transform: scale(1.02, 0.98) translateY(0);
+      }
+    }
+
+    .social-btn.google:hover {
+      background: linear-gradient(135deg, #0a5cb8 0%, #0e75d6 100%);
+      animation: jelly 0.6s ease-in-out;
+      box-shadow: 0 6px 20px rgba(14, 117, 214, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.25),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .social-btn.google:hover::before {
+      left: 100%;
+    }
+
+    .social-btn.google:active {
+      transform: scale(0.98) translateY(0px);
+      animation: none;
+      box-shadow: 0 2px 10px rgba(14, 117, 214, 0.3),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    }
+
+    .social-btn.google:focus {
+      outline: 3px solid rgba(14, 117, 214, 0.5);
+      outline-offset: 2px;
+    }
+
+    .social-btn.google:focus:not(:focus-visible) {
+      outline: none;
+    }
+
+
+    .login-footer {
+      margin-top: 24px;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .login-footer a {
+      color: #0e75d6;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .login-footer a:hover {
+      opacity: 0.8;
+    }
+
+    /* START SECTION */
+    #start {
+      min-height: 100vh;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .start-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .start-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      min-height: 100vh;
+    }
+
+    .start-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    .start-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .start-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px 40px;
+      background: #ffffff;
+    }
+
+    .start-content h2 {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: #0e75d6;
+    }
+
+    .start-content p {
+      font-size: 20px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      color: rgba(14, 117, 214, 0.8);
+    }
+
+    .start-btn {
+      padding: 16px 32px;
+      background: #0e75d6;
+      color: white;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(14, 117, 214, 0.3);
+    }
+
+    .start-btn:hover {
+      background: #0a5cb8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(14, 117, 214, 0.4);
+    }
+
+    /* ABOUT SECTION */
+    #about {
+      min-height: 100vh;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .about-container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .about-container h2 {
+      font-size: 48px;
+      font-weight: 700;
       text-align: center;
-      margin-top: 18px;
-      font-size: 14px;
+      margin-bottom: 40px;
+      color: #0e75d6;
     }
 
-    .signup-link a {
-      color: #60a5fa;
-      text-decoration: none;
+    .about-image {
+      text-align: center;
+      margin-bottom: 40px;
     }
 
-    .signup-link a:hover {
-      text-decoration: underline;
+    .about-image img {
+      max-width: 500px;
+      width: 100%;
+      height: auto;
     }
 
-    .forgot-link {
-      display: block;
-      text-align: right;
-      font-size: 14px;
-      margin-top: 6px;
+    .about-intro {
+      font-size: 20px;
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 48px;
+      color: #0e75d6;
     }
 
-    .forgot-link a {
-      color: #60a5fa;
-      text-decoration: none;
+    .team-title {
+      font-size: 28px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 32px;
+      color: #0e75d6;
     }
 
-    .forgot-link a:hover {
-      text-decoration: underline;
+    .team-grid {
+      display: grid;
+      gap: 24px;
     }
-  </style>
- 
- <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Strangertalk.online",
-  "url": "https://strangertalk.online",
-  "logo": "https://strangertalk.online/all.png",
-  "founder": {
-    "@type": "Person",
-    "name": "Gokul Raj"
-  },
-  "foundingDate": "2025",
-  "foundingLocation": "India",
-  "employee": [
-    {
-      "@type": "Person",
-      "name": "Vishvjeet Kumar",
-      "jobTitle": "Co-Founder"
-    },
-    {
-      "@type": "Person",
-      "name": "Piyush Kumar",
-      "jobTitle": "CEO"
+
+    .team-card {
+      background: white;
+      border: 1px solid rgba(14, 117, 214, 0.2);
+      border-radius: 8px;
+      padding: 24px;
+      transition: all 0.3s ease;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     }
-  ],
-  "sameAs": [
-    "https://www.instagram.com/strangertalk_369?igsh=ODRuNmNzcHRtbzli",
-    "https://www.linkedin.com/company/strangertalk-online/",
-    ""
-   ]
+
+    .team-card:hover {
+      box-shadow: 0 4px 12px rgba(14, 117, 214, 0.1);
+    }
+
+    .team-card h4 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #0e75d6;
+    }
+
+    .team-card p {
+      font-size: 16px;
+      color: rgba(14, 117, 214, 0.8);
+      line-height: 1.6;
+    }
+
+    /* WHY SECTION */
+    #why {
+      min-height: 100vh;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+
+    .why-container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .why-container h2 {
+      font-size: 48px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #0e75d6;
+    }
+
+    .why-image {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .why-image img {
+      max-width: 200px;
+      width: 100%;
+      height: auto;
+    }
+
+    .why-intro {
+      font-size: 20px;
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 48px;
+      color: #0e75d6;
+    }
+
+    .features-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .feature-card {
+      display: flex;
+      gap: 16px;
+      background: white;
+      border: 1px solid rgba(14, 117, 214, 0.2);
+      border-radius: 8px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 4px 12px rgba(14, 117, 214, 0.1);
+    }
+
+    .feature-icon {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      color: #0e75d6;
+      margin-top: 4px;
+    }
+
+    .feature-text {
+      font-size: 18px;
+      color: #0e75d6;
+      line-height: 1.6;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      /* Mobile Menu */
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .main-nav {
+        padding: 15px 20px;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      /* Login Page - Mobile */
+      .login-grid {
+        grid-template-columns: 1fr;
+        min-height: 100vh;
+      }
+
+      .video-wrapper {
+        height: 40vh;
+        min-height: 300px;
+      }
+
+      .login-box {
+        padding: 30px 20px;
+        min-height: 60vh;
+      }
+
+      .login-container {
+        max-width: 100%;
+        padding: 0 10px;
+      }
+
+      .login-container h3 {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+
+      .login-container img {
+        max-width: 100px;
+        margin: 15px auto;
+      }
+
+      .social-btn {
+        padding: 12px 16px;
+        font-size: 15px;
+        margin-bottom: 12px;
+      }
+
+      .login-footer {
+        font-size: 12px;
+        margin-top: 20px;
+      }
+
+      /* Start Section */
+      #start {
+        padding: 40px 20px;
+        min-height: auto;
+      }
+
+      .start-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+        min-height: auto;
+      }
+
+      .start-image {
+        height: 60vh;
+      }
+
+      .start-content {
+        padding: 40px 20px;
+      }
+
+      .start-content h2 {
+        font-size: 32px;
+      }
+
+      .start-content p {
+        font-size: 16px;
+      }
+
+      /* About Section */
+      #about {
+        padding: 40px 20px;
+        min-height: auto;
+      }
+
+      .about-container h2 {
+        font-size: 32px;
+      }
+
+      .about-image img {
+        max-width: 300px;
+      }
+
+      .about-intro {
+        font-size: 16px;
+      }
+
+      /* Why Section */
+      #why {
+        padding: 40px 20px;
+        min-height: auto;
+      }
+
+      .why-container h2 {
+        font-size: 32px;
+      }
+
+      .why-image img {
+        max-width: 300px;
+      }
+
+      .why-intro {
+        font-size: 16px;
+      }
+
+      .feature-card {
+        flex-direction: row;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .feature-text {
+        font-size: 16px;
+      }
+    }
+
+    #preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  transition: opacity 0.5s ease;
 }
-</script>
 
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #e0e0e0;
+  border-top-color: #0e75d6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.main-footer {
+  width: 100%;
+  background: #ffffff;
+  padding: 25px 40px;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #eee;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-icons img {
+  width: 28px;
+  margin-right: 10px;
+  transition: 0.2s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+}
+
+.footer-links a {
+  color: #007b7e;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 0 5px;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-right {
+  text-align: right;
+}
+
+.footer-right p {
+  font-size: 14px;
+  color: #333;
+}
+
+.footer-logo {
+  width: 55px;
+  margin-top: 5px;
+}
+
+  </style>
 </head>
 
 <body>
-  <div class="login-card">
-    <h2>Welcome Back</h2>
-    <p>Sign in to continue</p>
 
-    <!-- ✅ ERROR ALERT UI (optional) -->
-    <% if (typeof error !== 'undefined') { %>
-      <div class="alert alert-danger text-center py-2"><%= error %></div>
-    <% } %>
+  <div id="preloader">
+  <div class="loader"></div>
+</div>
 
-    <form action="/login" method="POST">
-      <div class="mb-3">
-        <label class="form-label">Email Address</label>
-        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+  <!-- LOGIN PAGE -->
+  <section id="loginPage">
+    <div class="login-grid">
+      <!-- VIDEO SIDE -->
+      <div class="video-wrapper">
+        <video autoplay loop muted playsinline>
+          <source src="/video123.mp4" type="video/mp4">
+        </video>
       </div>
 
-      <div class="mb-2">
-        <label class="form-label">Password</label>
-        <div class="input-group">
-          <input type="password" name="password" id="passwordField" class="form-control" placeholder="Enter your password" required>
-          <span class="input-group-text" id="togglePassword">👁️</span>
+      <!-- LOGIN SIDE -->
+      <div class="login-box">
+        <div class="login-container">
+          <h3>Become a StrangerTalk member!</h3>
+
+          <img src="/all.png" alt="StrangerTalk logo">
+
+          <a href="/auth/google" class="social-btn google">
+            <i class="bi bi-google"></i> Continue with Google
+          </a>
+
+          <p class="login-footer">
+            I confirm that I am at least 18 years old.<br>
+            I accept <a href="/agreements">User Agreement</a>.
+          </p>
         </div>
-
-        <!-- ✅ Forgot password link -->
-        <div class="forgot-link">
-          <a href="/forgot-password">Forgot password?</a>
-        </div>
       </div>
+    </div> 
+  </section>
 
-      <button id="login" type="submit" class="btn btn-primary w-100 mt-3">Login</button>
+  <!-- NAVBAR -->
+  <nav class="main-nav">
+    <button class="menu-toggle" onclick="toggleMenu()">
+      <i class="bi bi-list"></i>
+    </button>
+    
+    <div class="nav-menu">
+      <button class="nav-link" onclick="scrollToSection('loginPage')">Start</button>
+      <button class="nav-link" onclick="scrollToSection('about')">About</button>
+      <button class="nav-link" onclick="scrollToSection('why')">Why StrangerTalk</button>
+    </div>
+  </nav>
 
-      <div class="signup-link">
-        Don't have an account?
-        <a href="/register">Register</a>
-      </div>
-    </form>
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" onclick="toggleMenu()">
+      <i class="bi bi-x"></i>
+    </button>
+    <button class="nav-link" onclick="scrollToSection('loginPage'); toggleMenu();">Start</button>
+    <button class="nav-link" onclick="scrollToSection('about'); toggleMenu();">About</button>
+    <button class="nav-link" onclick="scrollToSection('why'); toggleMenu();">Why StrangerTalk</button>
   </div>
 
-  <!-- ✅ Password Show/Hide JS -->
-  <script>
-    const togglePassword = document.getElementById("togglePassword");
-    const passwordField = document.getElementById("passwordField");
+  <!-- START SECTION -->
+  <section id="start">
+    <div class="start-container">
+      <div class="start-grid">
+        <div class="start-image">
+          <img src="./palce.png" alt="Girl placeholder" loading="lazy">
+        </div>
 
-    togglePassword.addEventListener("click", () => {
-      const type = passwordField.type === "password" ? "text" : "password";
-      passwordField.type = type;
-      togglePassword.textContent = type === "password" ? "👁️" : "🙈";
-    });
+        <div class="start-content">
+          <h2>Connect instantly. Meet someone new.</h2>
+          <p>One tap to connect with people around the world — anonymous, free, and fast.</p>
+          <button class="start-btn" onclick="scrollToSection('loginPage')">Go to Login</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about">
+    <div class="about-container">
+      <h2>Discover the Excitement</h2>
+
+      <p class="about-intro">
+        StrangerTalk instantly connects you to random people worldwide. Enjoy free video chat, fast connection and no limits.
+      </p>
+
+      <h3 class="team-title">Our Team</h3>
+
+      <div class="team-grid">
+        <div class="team-card">
+          <h4>Founder — [GOKUL RAJ]</h4>
+          <p>Creator of StrangerTalk. Passionate about building safe anonymous chat experiences.</p>
+        </div>
+
+        <div class="team-card">
+          <h4>Co-founder — [VISHVJEET KUMAR]</h4>
+          <p> I lead the vision, development, and growth of social interaction 
+            platform that connects people globally through secure and intelligent real-time chat.</p>
+        </div>
+
+        <div class="team-card">
+          <h4>CEO — [PIYUSH KUMAR]</h4>
+          <p>Leads strategy and partnerships.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY STRANGERTALK SECTION -->
+  <section id="why">
+    <div class="why-container">
+      <h2>Why StrangerTalk?</h2>
+
+      <div class="why-image">
+        <img src="./all.png" alt="Why StrangerTalk" loading="lazy">
+      </div>
+
+      <p class="why-intro">
+        Experience the freedom of instant global video chat with complete anonymity, powerful safety features, and zero limitations.
+      </p>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <i class="feature-icon bi bi-lightning-fill"></i>
+          <p class="feature-text">Fast connections — instantly matched with people worldwide</p>
+        </div>
+
+        <div class="feature-card">
+          <i class="feature-icon bi bi-globe"></i>
+          <p class="feature-text">StrangerTalk - Free anonymous Chat</p>
+        </div>
+
+        <div class="feature-card">
+          <i class="feature-icon bi bi-hourglass"></i>
+          <p class="feature-text">No time limits — chat as long as you want, completely free</p>
+        </div>
+
+        <div class="feature-card">
+          <i class="feature-icon bi bi-shield-check"></i>
+          <p class="feature-text">Safe & moderated — age verification and active content moderation to keep the platform secure</p>
+        </div>
+
+        <div class="feature-card">
+          <i class="feature-icon bi bi-phone"></i>
+          <p class="feature-text">Works everywhere — seamless experience on mobile, tablet, and desktop</p>
+        </div>
+
+        <div class="feature-card">
+          <i class="feature-icon bi bi-lock"></i>
+          <p class="feature-text">Anonymous & private — your conversations are not recorded or monitored</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function toggleMenu() {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('active');
+    }
   </script>
+  <script>
+  // Hide preloader after 3 seconds
+  setTimeout(() => {
+    const preloader = document.getElementById("preloader");
+    preloader.style.opacity = "0";
+    setTimeout(() => preloader.style.display = "none", 500);
+  }, 1500);
+</script>
+<footer class="main-footer">
+  <div class="footer-left">
+    <div class="social-icons">
+      <a href="https://www.facebook.com/StrangerTalkOfficial/"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt=""></a>
+      <a href="https://www.instagram.com/strangertalk.online?igsh=ODRuNmNzcHRtbzli"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt=""></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt=""></a>
+    </div>
+
+    <div class="footer-links">
+      <a href="/terms">Terms</a>
+      <a href="/Rules">Rules</a> 
+      <a  href="/privacy">Privacy</a>
+      <a href="/contact">Contacts</a>
+    </div>
+  </div>
+
+  <div class="footer-right">
+    <p>© 2025 StrangerTalk — All Rights Reserved</p>
+    <img src="./all.png" class="footer-logo" alt="logo">
+  </div>
+</footer>
+
 </body>
-</html>
+ 
+</html> 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://strangertalk.online/</loc>
+    <lastmod>2025-11-27T18:43:00+00:00</lastmod>
+    <priority>1.00</priority>
+  </url>
+
+  <url>
+    <loc>https://strangertalk.online/agreements</loc>
+    <lastmod>2025-11-27T18:43:00+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://strangertalk.online/home</loc>
+    <lastmod>2025-11-27T18:43:00+00:00</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+  <url>
+    <loc>https://strangertalk.online/privacy</loc>
+    <lastmod>2025-11-27T18:43:00+00:00</lastmod>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://strangertalk.online/Rules</loc>
+    <lastmod>2025-11-27T18:43:00+00:00</lastmod>
+    <priority>0.50</priority>
+  </url>
+
+  <url>
+    <loc>https://strangertalk.online/terms</loc>
+    <lastmod>2025-11-27T18:43:00+00:00</lastmod>
+    <priority>0.50</priority>
+  </url>
+
+  <url>
+    <loc>https://strangertalk.online/contact</loc>
+    <lastmod>2025-11-27T18:43:00+00:00</lastmod>
+    <priority>0.40</priority>
+  </url>
+
+</urlset>

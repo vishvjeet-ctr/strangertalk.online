@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us - StrangerTalk</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 40px;
+      margin: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      color: #333;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    textarea {
+      height: 120px;
+    }
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      background: #0066ff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #004bcc;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Contact Us</h1>
+
+    <p style="text-align:center; color:#555;">
+      अगर आपको किसी भी तरह की सहायता चाहिए, नीचे फॉर्म भरकर हमसे संपर्क करें।
+    </p>
+
+    <form action="mailto:support@strangertalk.online" method="POST" enctype="text/plain">
+      <label>Your Name</label>
+      <input type="text" name="name" placeholder="Enter your name" required>
+
+      <label>Your Email</label>
+      <input type="email" name="email" placeholder="Enter your email" required>
+
+      <label>Your Message</label>
+      <textarea name="message" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</body>
+</html>

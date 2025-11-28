@@ -14,6 +14,8 @@ import session from 'express-session';
 import bcrypt from 'bcryptjs';
 import nodemailer from 'nodemailer'
 import Randomstring from 'randomstring';
+import passport from 'passport';
+import ('./auth/google.js')
 
 
 
@@ -39,6 +41,9 @@ cookie:{
 }
 
 }))
+ 
+app.use(passport.initialize())
+app.use(passport.session())
 
 mongoose.connect(process.env.MONGO_URL,{
     "dbName":"stranger"
@@ -46,19 +51,18 @@ mongoose.connect(process.env.MONGO_URL,{
 
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+ 
+const port = process.env.PORT || 9000;
 
-app.use(express.static("public"));
-
-const port = process.env.PORT||port;
-
+// Serve static files from public and views directories
 app.use(express.static(join(__dirname, 'public')));
-
+app.use(express.static(join(__dirname, 'views')));
 
 let checkLogin = (req,res,next)=>{
     if(req.session.user){
         next()
     }else{
-        res.redirect('login.ejs')
+        res.redirect('/')
     }
 } 
 
@@ -68,13 +72,50 @@ app.get("/", (req, res) => {
 });
 
 
-app.get("/register",(req,res)=>{
-    res.render("register.ejs",{url:null})
-})
 
-app.get('/home',checkLogin,(req,res)=>{
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile','email'] }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google',
+     { failureRedirect: '/', 
+       successRedirect: '/home'
+     }
+    ),
+  );
+
+  app.get('/home',(req,res)=>{
+  if(!(req.isAuthenticated && req.isAuthenticated())) return res.redirect('/')
+
   res.sendFile(join(__dirname , 'app' ,'index.html'));
 })
+
+
+app.get("/privacy", (req, res) => {
+  res.render("privacy.ejs")
+
+});
+
+app.get("/terms", (req, res) => {
+  res.render("terms.ejs")
+
+});
+
+ app.get("/contact", (req, res) => {
+  res.render("contact.ejs")
+
+});
+
+app.get("/Rules",(req,res)=>{
+    res.render("Rules.ejs")
+})
+   
+ 
+app.get("/agreements",(req,res)=>{
+    res.render("agreements.ejs")
+})
+   
 
 app.get("/forgot-password", (req, res) => {
   res.render("forget.ejs", { msg: null }); // Renders this UI
@@ -88,7 +129,8 @@ app.post('/forgot-password',async(req,res)=>{
    }
 await send(email,verifaction)
     res.render('verify.ejs', { email, msg: null })
-})
+}) 
+
 
 
 app.post('/verifyOTP', async (req, res) => {
@@ -117,7 +159,7 @@ const verifaction = Math.floor(100000 + Math.random() * 900000).toString()
 app.post("/register", async (req, res) => {
 
 try {
-     const { name, email, password } = req.body;
+     const { name, email, password, dateOfBirth } = req.body;
 
     const ExistUser = await User.findOne({email})
     if(ExistUser){
@@ -126,7 +168,7 @@ try {
 
    else{
       const hash = await bcrypt.hash(password, 10)
-    const user = await User.create({name,email,password:hash,verifaction})
+    const user = await User.create({name, email, password: hash, dateOfBirth, verifaction})
     req.session.user = user._id;
     res.redirect('/home');
    }
@@ -285,3 +327,4 @@ io.on("connection", (socket) => {
 server.listen(port, () => {
     console.log(`✅ Server running on http://localhost:${port}}`);
 });
+ 
